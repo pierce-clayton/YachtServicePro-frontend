@@ -11,7 +11,7 @@ export default class Login extends Component {
   handleSubmit = (event) => {
     const { email, password } = this.state
     event.preventDefault()
-    axios.post('http://localhost:3001/sessions', {
+    axios.post('https://gentle-caverns-38062.herokuapp.com/sessions', {
       user: {
         email: email,
         password: password
