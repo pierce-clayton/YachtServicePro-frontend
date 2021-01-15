@@ -50,6 +50,8 @@ export default class App extends Component {
             <Route exact path='/dashboard' render={props => (
               <Dashboard {...props}
                          loggedInStatus={this.state.loggedInStatus}
+                         user={this.state.user}
+                         customer={this.state.customer}
                          />
             )}/>
           </Switch>
