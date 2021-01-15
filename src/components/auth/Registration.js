@@ -12,7 +12,7 @@ export default class Registration extends Component {
   handleSubmit = (event) => {
     const { email, password, password_confirmation } = this.state
     event.preventDefault()
-    axios.post('https://gentle-caverns-38062.herokuapp.com/registrations', {
+    axios.post('https://yspservice.baracus.rocks/registrations', {
       user: {
         email: email,
         password: password,

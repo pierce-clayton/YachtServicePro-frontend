@@ -10,7 +10,7 @@ export default class Home extends Component {
     this.props.history.push('/dashboard')
   }
   handleLogoutClick = () => {
-    axios.delete('https://gentle-caverns-38062.herokuapp.com/logout', {withCredentials: true})
+    axios.delete('https://yspservice.baracus.rocks/logout', {withCredentials: true})
     .then(() => {
       this.props.handleLogout()
     })
