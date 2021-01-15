@@ -27,7 +27,7 @@ export default class App extends Component {
     .catch(err => console.log(err))
   }
   handleLogin = (data) => {
-    if (data.user) {
+    if (!!data.user) {
       this.setState({loggedInStatus: "LOGGED_IN", user: data.user})
     }else {
       this.setState({loggedInStatus: "LOGGED_IN", customer: data.customer})
