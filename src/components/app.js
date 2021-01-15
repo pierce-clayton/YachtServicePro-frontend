@@ -19,7 +19,11 @@ export default class App extends Component {
     axios.get('https://backend.baracus.rocks/logged_in', { withCredentials: true })
     .then(response => {
       if (response.data.logged_in && this.state.loggedInStatus === 'NOT_LOGGED_IN') {
-        this.setState({ loggedInStatus: 'LOGGED_IN', user: response.data.user })
+        if (!!response.data.user) {
+          this.setState({ loggedInStatus: 'LOGGED_IN', user: response.data.user })
+        } else {
+          this.setState({ loggedInStatus: 'LOGGED_IN', customer: response.data.customer })
+        }
       }else if (!response.data.logged_in && this.state.loggedInStatus === 'LOGGED_IN') {
         this.setState({ loggedInStatus: 'NOT_LOGGED_IN', user: {} })
       }
