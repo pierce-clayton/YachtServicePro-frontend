@@ -7,7 +7,8 @@ import axios from 'axios'
 export default class App extends Component {
   state = {
     loggedInStatus: 'NOT_LOGGED_IN',
-    user: {}
+    user: {},
+    customer: {}
   }
 
   componentDidMount(){
@@ -26,7 +27,11 @@ export default class App extends Component {
     .catch(err => console.log(err))
   }
   handleLogin = (data) => {
-    this.setState({loggedInStatus: "LOGGED_IN", user: data.user})
+    if (data.user) {
+      this.setState({loggedInStatus: "LOGGED_IN", user: data.user})
+    }else {
+      this.setState({loggedInStatus: "LOGGED_IN", customer: data.customer})
+    }
   }
   handleLogout = () => {
     this.setState({ loggedInStatus: 'NOT_LOGGED_IN', user: {}})
