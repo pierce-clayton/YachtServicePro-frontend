@@ -11,7 +11,7 @@ export default class Login extends Component {
   handleSubmit = (event) => {
     const { email, password } = this.state
     event.preventDefault()
-    axios.post('https://yspservice.baracus.rocks/sessions', {
+    axios.post('https://backend.baracus.rocks/sessions', {
       user: {
         email: email,
         password: password

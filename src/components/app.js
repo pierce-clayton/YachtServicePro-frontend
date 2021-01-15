@@ -15,7 +15,7 @@ export default class App extends Component {
   }
   // 'https://gentle-caverns-38062.herokuapp.com/logged_in'
   checkLoginStatus = () => {
-    axios.get('https://yspservice.baracus.rocks/logged_in', { withCredentials: true })
+    axios.get('https://backend.baracus.rocks/logged_in', { withCredentials: true })
     .then(response => {
       if (response.data.logged_in && this.state.loggedInStatus === 'NOT_LOGGED_IN') {
         this.setState({ loggedInStatus: 'LOGGED_IN', user: response.data.user })
