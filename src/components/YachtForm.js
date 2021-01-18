@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function YachtForm(props) {
+export default function YachtForm({handleNewYacht}) {
   return (
     <div>
       <form onSubmit={handleNewYacht} >
