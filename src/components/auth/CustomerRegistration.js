@@ -39,10 +39,27 @@ export default class Registration extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <input type="email" name="email" placeholder='Email' value={this.state.email} onChange={this.handleChange} required />
-          <input type="password" name="password" placeholder='Password' value={this.state.password} onChange={this.handleChange} required />
-          <input type="password" name="password_confirmation" placeholder='Confirm Password' value={this.state.password_confirmation} onChange={this.handleChange} required />
-          <button type="submit">Register</button>
+          <div className="field">
+            <label className="label">Register new Customer</label>
+            <div className="control">
+              <input type="email" name="email" placeholder='Email' value={this.state.email} onChange={this.handleChange} required />
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <input type="password" name="password" placeholder='Password' value={this.state.password} onChange={this.handleChange} required />
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <input type="password" name="password_confirmation" placeholder='Confirm Password' value={this.state.password_confirmation} onChange={this.handleChange} required />
+            </div>
+          </div>
+          <div className="field">
+          <div className="control">
+            <button className="button is-success" type="submit">Register</button>
+            </div>
+          </div>
         </form>
       </div>
     )

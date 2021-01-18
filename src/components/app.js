@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
-import Home from './Home'
-import Dashboard from './Dashboard'
+import Home from '../containers/Home'
+import Dashboard from '../containers/Dashboard'
 import axios from 'axios'
 
 export default class App extends Component {

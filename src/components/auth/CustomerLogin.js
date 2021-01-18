@@ -37,9 +37,22 @@ export default class Login extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <input type="email" name="email" placeholder='Email' value={this.state.email} onChange={this.handleChange} required />
-          <input type="password" name="password" placeholder='Password' value={this.state.password} onChange={this.handleChange} required />
-          <button type="submit">Login</button>
+          <div className="field">
+            <label className="label">Customer Login</label>
+            <div className="control">
+              <input type="email" name="email" placeholder='Email' value={this.state.email} onChange={this.handleChange} required />
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <input type="password" name="password" placeholder='Password' value={this.state.password} onChange={this.handleChange} required />
+            </div>
+          </div>
+          <div className="field">
+          <div className="control">
+            <button className="button is-success" type="submit">Login</button>
+            </div>
+          </div>
         </form>
       </div>
     )
