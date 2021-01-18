@@ -4,7 +4,7 @@ import YachtForm from '../components/YachtForm'
 export default class YachtContainer extends Component {
 
   handleNewYacht = () => {
-    
+    console.log('handleNewYacht')
   }
 
   render() {
