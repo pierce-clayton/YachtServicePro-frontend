@@ -25,9 +25,8 @@ export default function YachtForm({handleNewYacht}) {
         <div className="field">
           <div className="control">
           <label className="checkbox">
-            <input type="checkbox" >
-              Sailboat?
-            </input>
+             Sailboat?
+            <input type="checkbox" /> 
           </label>
           </div>
         </div>
