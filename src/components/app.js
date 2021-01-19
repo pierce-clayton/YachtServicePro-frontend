@@ -8,11 +8,16 @@ export default class App extends Component {
   state = {
     loggedInStatus: 'NOT_LOGGED_IN',
     user: {},
-    customer: {}
+    customer: {},
+    marinas: []
   }
 
   componentDidMount(){
     this.checkLoginStatus()
+    axios.get('https://backend.baracus.rocks/marinas.json', { withCredentials: true })
+    .then(response => {
+      this.setState({marinas: response.data})
+    })
   }
   // 'https://gentle-caverns-38062.herokuapp.com/logged_in'
   checkLoginStatus = () => {
@@ -56,6 +61,7 @@ export default class App extends Component {
                          loggedInStatus={this.state.loggedInStatus}
                          user={this.state.user}
                          customer={this.state.customer}
+                         marinas={this.state.marinas}
                          />
             )}/>
           </Switch>
