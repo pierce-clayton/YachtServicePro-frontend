@@ -10,12 +10,20 @@ export default class YachtContainer extends Component {
     sailboat: false,
     marina: ''
   }
-  componentDidMount() {
-    
-  }
+  
   handleNewYacht = (e) => {
     if (e.target.value === 'submit') {
       // handle new yacht here
+      axios.post('https://backend.baracus.rocks/yachts' , {
+        name: this.state.name,
+        length: this.state.length,
+        reg_num: this.state.reg_num,
+        sailboat: this.state.sailboat,
+        marina: this.state.marina
+      },{withCredentials: true})
+      .then(response => {
+        console.log(response)
+      })
     } else if (e.target.value === 'cancel'){
       this.setState({
         name: '',
