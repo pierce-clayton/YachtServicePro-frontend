@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import YachtForm from '../components/YachtForm'
 import axios from 'axios'
+import Yacht from '../components/Yacht'
 
 export default class YachtContainer extends Component {
   state = {
@@ -8,13 +9,23 @@ export default class YachtContainer extends Component {
     length: '20',
     reg_num: '',
     sailboat: false,
-    marina: ''
+    marina: '',
+    displayedYachts: []
   }
   
+  componentDidMount() {
+    axios.get(`https://backend.baracus.rocks/customers/${this.props.customer.id}`, {withCredentials: true})
+    .then(response => {
+      const cust = response.data
+      if (cust.yachts.length > 0) {
+        this.setState({displayedYachts: cust.yachts})
+      }
+    })
+  }
+
+
   handleNewYacht = (e) => {
     if (e.target.value === 'submit') {
-      // handle new yacht here
-      console.log(this.props.marinas.find(marina => marina.name === this.state.marina).id)
       axios.post('https://backend.baracus.rocks/yachts.json' , {
         name: this.state.name,
         length: this.state.length,
@@ -23,7 +34,9 @@ export default class YachtContainer extends Component {
         marina_id: this.props.marinas.find(marina => marina.name === this.state.marina).id
       },{withCredentials: true})
       .then(response => {
-        console.log(response)
+        this.setState(prevState => ({
+          displayedYachts: [...prevState.displayedYachts, response.data]
+        }))
       })
     } else if (e.target.value === 'cancel'){
       this.setState({
@@ -33,6 +46,12 @@ export default class YachtContainer extends Component {
         marina: ''
       })
     }
+  }
+  handleEditYacht = () => {
+
+  }
+  handleViewYacht = () => {
+
   }
   handleChange = (event) => {
     if (event.target.name === 'sailboat'){
@@ -49,6 +68,12 @@ export default class YachtContainer extends Component {
   render() {
     return (
       <div>
+        <Yacht 
+        yachts={this.state.displayedYachts}
+        handleViewYacht={this.handleViewYacht}
+        handleEditYacht={this.handleEditYacht}
+        marinas={this.props.marinas}
+        />
         <YachtForm
         handleNewYacht={this.handleNewYacht}
         handleChange={this.handleChange}
