@@ -14,12 +14,13 @@ export default class YachtContainer extends Component {
   handleNewYacht = (e) => {
     if (e.target.value === 'submit') {
       // handle new yacht here
-      axios.post('https://backend.baracus.rocks/yachts' , {
+      console.log(this.props.marinas.find(marina => marina.name === this.state.marina).id)
+      axios.post('https://backend.baracus.rocks/yachts.json' , {
         name: this.state.name,
         length: this.state.length,
-        reg_num: this.state.reg_num,
-        sailboat: this.state.sailboat,
-        marina: this.state.marina
+        registration_number: this.state.reg_num,
+        sail: this.state.sailboat,
+        marina_id: this.props.marinas.find(marina => marina.name === this.state.marina).id
       },{withCredentials: true})
       .then(response => {
         console.log(response)
@@ -32,7 +33,6 @@ export default class YachtContainer extends Component {
         marina: ''
       })
     }
-    console.log(e.target.value)
   }
   handleChange = (event) => {
     if (event.target.name === 'sailboat'){

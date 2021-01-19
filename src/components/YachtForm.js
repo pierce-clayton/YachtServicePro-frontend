@@ -6,7 +6,6 @@ export default class YachtForm extends Component {
   render() {
     const { name, length, reg_num, sailboat, marina, marinas, handleNewYacht, handleChange } = this.props
     const marinaItems = marinas.map((marina) => {
-      console.log(marina)
       return <option value={marina.name} name={marina.name} key={marina.id}>{marina.name}</option>
     })
     return (
