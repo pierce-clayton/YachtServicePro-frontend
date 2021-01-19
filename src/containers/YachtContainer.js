@@ -50,9 +50,6 @@ export default class YachtContainer extends Component {
   handleEditYacht = () => {
 
   }
-  handleViewYacht = () => {
-
-  }
   handleChange = (event) => {
     if (event.target.name === 'sailboat'){
       this.setState({
@@ -69,10 +66,11 @@ export default class YachtContainer extends Component {
     return (
       <div>
         <Yacht 
+        history={this.props.history}
         yachts={this.state.displayedYachts}
-        handleViewYacht={this.handleViewYacht}
         handleEditYacht={this.handleEditYacht}
         marinas={this.props.marinas}
+        handleSelectedYacht={this.props.handleSelectedYacht}
         />
         <YachtForm
         handleNewYacht={this.handleNewYacht}

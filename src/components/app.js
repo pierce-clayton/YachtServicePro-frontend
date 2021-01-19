@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Home from '../containers/Home'
 import Dashboard from '../containers/Dashboard'
+import ProductContainer from '../containers/ProductContainer'
 import axios from 'axios'
 
 export default class App extends Component {
@@ -9,7 +10,8 @@ export default class App extends Component {
     loggedInStatus: 'NOT_LOGGED_IN',
     user: {},
     customer: {},
-    marinas: []
+    marinas: [],
+    selectedYacht: {}
   }
 
   componentDidMount(){
@@ -45,6 +47,9 @@ export default class App extends Component {
   handleLogout = () => {
     this.setState({ loggedInStatus: 'NOT_LOGGED_IN', user: {}})
   }
+  handleSelectedYacht = (yacht) => {
+    this.setState({selectedYacht: yacht})
+  }
   render() {
     return (
       <div className='app'>
@@ -62,8 +67,16 @@ export default class App extends Component {
                          user={this.state.user}
                          customer={this.state.customer}
                          marinas={this.state.marinas}
+                         handleSelectedYacht={this.handleSelectedYacht}
                          />
             )}/>
+            <Route exact path='/services' render={props => (
+              <ProductContainer {...props} 
+                                customer={this.state.customer}
+                                marinas={this.state.marinas}
+                                yacht={this.state.selectedYacht}
+                                />
+            )} />
           </Switch>
         </BrowserRouter>
       </div>
