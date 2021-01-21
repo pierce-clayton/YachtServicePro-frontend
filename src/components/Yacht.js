@@ -16,7 +16,10 @@ export default function Yacht({yachts, marinas, handleEditYacht, handleSelectedY
             <a className="level-item button is-primary" onClick={() => {
               handleSelectedYacht(yacht)
               return history.push('/services')}}>Yacht Services</a>
-            <a className="level-item button is-info" onClick={handleEditYacht}>Edit Yacht Details</a>
+            <a className="level-item button is-info" onClick={() => {
+              return handleEditYacht(yacht)
+            }
+              }>Edit Yacht Details</a>
           </div>
         </nav>
       </div>

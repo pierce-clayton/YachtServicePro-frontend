@@ -47,8 +47,13 @@ export default class YachtContainer extends Component {
       })
     }
   }
-  handleEditYacht = () => {
-
+  handleEditYacht = (yacht) => {
+    this.setState({
+      name: yacht.name,
+      length: yacht.length,
+      reg_num: yacht.registration_number,
+      marina: this.props.marinas.filter(marina => marina.id === yacht.marina_id)
+    })
   }
   handleChange = (event) => {
     if (event.target.name === 'sailboat'){
