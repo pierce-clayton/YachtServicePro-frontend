@@ -7,6 +7,7 @@ export default function Yacht({yachts, marinas, handleEditYacht, handleSelectedY
         <div className="content">
           <p>Yacht Name: {yacht.name}</p><br/>
           <p>Length: {yacht.length}</p><br/>
+          <p>Registration Number: {yacht.registration_number}</p><br/>
           <p>Sailboat: {yacht.sail ? "Yes": "No"}</p><br/>
           <p>Marina: {marinas.find(marina => marina.id === yacht.marina_id).name}</p><br/>
         </div>

@@ -31,14 +31,14 @@ export default class Home extends Component {
           <div className="hero-body">
               <div className="container">
                 <nav className="level">
-                  <div className="level-left">
+                  {/* <div className="level-left">
                     <div className="level-item">
                       <Registration handleSuccessfulAuth={this.handleSuccessfulAuth} />
                       </div>
                     <div className="level-item">
                       <Login handleSuccessfulAuth={this.handleSuccessfulAuth}/>
                     </div>
-                  </div>
+                  </div> */}
                   
                   <div className="level-right">
                     <div className="level-item">

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Product({customer, yacht, marinas, products}) {
+export default function Product({customer, yacht, marinas, products, handlePurchase}) {
   const productList = products.map(product => {
     return <article className="media" key={yacht.id}>
     <div className="media-content">
@@ -11,8 +11,8 @@ export default function Product({customer, yacht, marinas, products}) {
       </div>
       <nav className="level is-mobile">
         <div className="level-left">
-          <a className="level-item button is-primary" onClick={() => {}}>Buy One Time</a>
-          <a className="level-item button is-info" onClick={() => {}}>Subscribe for regular service</a>
+          <a className="level-item button is-primary" onClick={() => handlePurchase(product, 'one_time')}>Buy One Time</a>
+          <a className="level-item button is-info" onClick={() => handlePurchase(product, 'subcription')}>Subscribe for regular service</a>
         </div>
       </nav>
     </div>

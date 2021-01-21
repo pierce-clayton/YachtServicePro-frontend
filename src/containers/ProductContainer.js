@@ -16,11 +16,20 @@ export default class ProductContainer extends Component {
       this.setState({products: response.data.filter(product => product.marina_id === yacht.marina_id)})
     })
   }
+  handlePurchase = (product, interval) => {
+    console.log(product, interval)
+  }
+  
   render() {
     const { customer, yacht, marinas } = this.props
     return (
       <div>
-        <Product customer={customer} yacht={yacht} marinas={marinas} products={this.state.products}/>
+        <Product
+        customer={customer}
+        yacht={yacht} marinas={marinas}
+        products={this.state.products}
+        handlePurchase={this.handlePurchase}
+        />
       </div>
     )
   }

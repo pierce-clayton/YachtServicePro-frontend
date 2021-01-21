@@ -46,6 +46,7 @@ export default class App extends Component {
   }
   handleLogout = () => {
     this.setState({ loggedInStatus: 'NOT_LOGGED_IN', user: {}})
+    location.reload()
   }
   handleSelectedYacht = (yacht) => {
     this.setState({selectedYacht: yacht})
