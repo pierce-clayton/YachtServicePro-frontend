@@ -32,7 +32,7 @@ export default class YachtContainer extends Component {
         length: this.state.length,
         registration_number: this.state.reg_num,
         sail: this.state.sailboat,
-        marina_id: this.props.marinas.filter(marina => marina.name === this.state.marina).id
+        marina_id: this.props.marinas.filter(marina => marina.name === this.state.marina).pop().id
       },{withCredentials: true})
       .then(response => {
         this.setState(prevState => ({
@@ -40,19 +40,31 @@ export default class YachtContainer extends Component {
         }))
       })
     } else if (e.target.value === 'edit'){
-      axios.patch(`https://backend.baracus.rocks/yachts/${this.props.yacht.id}.json`,{
-        name: this.state.name,
-        marina_id: this.props.marinas.filter(marina => marina.name === this.state.marina).id
+      axios.put(`https://backend.baracus.rocks/yachts/${this.props.yacht.id}.json`,{
+        yacht:{
+        marina_id: this.props.marinas.filter(marina => marina.name === this.state.marina).pop().id,
+        name: this.state.name}
       },{withCredentials: true})
       .then(response => {
         this.setState(prevState => ({
           editForm: false,
-          displayedYachts: [...prevState.displayedYachts, response.data],
+          displayedYachts: [response.data, ...prevState.displayedYachts],
           name: '',
           length: '20',
           reg_num: '',
           marina: ''
         }))
+      })
+    } else if (e.target.value === 'delete'){
+      console.log('delete')
+      axios.delete(`https://backend.baracus.rocks/yachts/${this.props.yacht.id}`,{withCredentials: true})
+      .then(response => {
+        this.setState({
+          name: '',
+          length: '20',
+          reg_num: '',
+          marina: ''
+        })
       })
     } else if (e.target.value === 'cancel'){
       this.setState({
@@ -68,7 +80,9 @@ export default class YachtContainer extends Component {
     this.setState(prevState => ({
       editForm: true,
       name: yacht.name,
-      marina: this.props.marinas.filter(marina => marina.id === yacht.marina_id).name,
+      length: yacht.length,
+      reg_num: yacht.registration_number,
+      marina: this.props.marinas.filter(marina => marina.id === yacht.marina_id).pop().name,
       displayedYachts: [...prevState.displayedYachts].filter(y => y.id !== yacht.id)
     }))
   }
@@ -86,25 +100,25 @@ export default class YachtContainer extends Component {
 
   render() {
     return (
-      <div>
-        <Yacht 
-        history={this.props.history}
-        yachts={this.state.displayedYachts}
-        handleEditYacht={this.handleEditYacht}
-        marinas={this.props.marinas}
-        handleSelectedYacht={this.props.handleSelectedYacht}
-        />
-        <YachtForm
-        handleNewYacht={this.handleNewYacht}
-        handleChange={this.handleChange}
-        name={this.state.name}
-        length={this.state.length}
-        reg_num={this.state.reg_num}
-        sailboat={this.state.sailboat}
-        marina={this.state.marina}
-        marinas={this.props.marinas}
-        editForm={this.state.editForm}
-        />
+      <div className='columns is-variable is-4'>
+          <YachtForm
+          handleNewYacht={this.handleNewYacht}
+          handleChange={this.handleChange}
+          name={this.state.name}
+          length={this.state.length}
+          reg_num={this.state.reg_num}
+          sailboat={this.state.sailboat}
+          marina={this.state.marina}
+          marinas={this.props.marinas}
+          editForm={this.state.editForm}
+          />
+          <Yacht 
+          history={this.props.history}
+          yachts={this.state.displayedYachts}
+          handleEditYacht={this.handleEditYacht}
+          marinas={this.props.marinas}
+          handleSelectedYacht={this.props.handleSelectedYacht}
+          />
       </div>
     )
   }

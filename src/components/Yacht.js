@@ -26,7 +26,7 @@ export default function Yacht({yachts, marinas, handleEditYacht, handleSelectedY
     </article>
   })
   return (
-    <div>
+    <div className='column is-three-quarters'>
       {yachtMediaObjects}
     </div>
   )

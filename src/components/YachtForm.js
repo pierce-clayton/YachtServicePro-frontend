@@ -9,7 +9,7 @@ export default class YachtForm extends Component {
       return <option value={marina.name} name={marina.name} key={marina.id}>{marina.name}</option>
     })
     return (
-      <div>
+      <div className='column'>
       <form>
         <div className="field">
           <label className="label">Yacht Name</label>
@@ -52,7 +52,7 @@ export default class YachtForm extends Component {
             <button type='button' className="button is-link" onClick={handleNewYacht} value={editForm ? "edit":"submit"}>{editForm ? "Edit":"Submit"}</button>
           </div>
           <div className="control">
-            <button type='button' className="button is-link is-light" value="cancel">Cancel</button>
+            <button type='button' className="button is-link is-light" onClick={handleNewYacht} value={editForm ? "delete":"cancel"}>{editForm ? "Delete":"Cancel"}</button>
           </div>
         </div>
       </form>      
