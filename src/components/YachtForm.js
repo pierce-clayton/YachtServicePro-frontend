@@ -4,7 +4,7 @@ export default class YachtForm extends Component {
 
     
   render() {
-    const { name, length, reg_num, sailboat, marina, marinas, handleNewYacht, handleChange } = this.props
+    const { name, length, reg_num, sailboat, marina, marinas, handleNewYacht, handleChange, editForm } = this.props
     const marinaItems = marinas.map((marina) => {
       return <option value={marina.name} name={marina.name} key={marina.id}>{marina.name}</option>
     })
@@ -20,20 +20,20 @@ export default class YachtForm extends Component {
         <div className="field">
           <label className="label">Length Overall</label>
           <div className="control">
-            <input type="number" className="input" value={length} name="length" onChange={handleChange}/>
+            {editForm ? <input type="number" className="input" value={length} name="length" onChange={handleChange} readOnly/> : <input type="number" className="input" value={length} name="length" onChange={handleChange} />}
           </div>
         </div>
         <div className="field">
           <label className="label">Registration Number</label>
           <div className="control">
-            <input type="text" className="input" value={reg_num} name="reg_num" onChange={handleChange}/>
+            {editForm ? <input type="text" className="input" value={reg_num} name="reg_num" onChange={handleChange} readOnly/> : <input type="text" className="input" value={reg_num} name="reg_num" onChange={handleChange}/>}
           </div>
         </div>
         <div className="field">
           <div className="control">
           <label className="checkbox">
              Sailboat?
-            <input type="checkbox" value={sailboat} name="sailboat" onChange={handleChange}/> 
+            {editForm ? <input type="checkbox" value={sailboat} name="sailboat" onChange={handleChange} readOnly/> : <input type="checkbox" value={sailboat} name="sailboat" onChange={handleChange}/>} 
           </label>
           </div>
         </div>
@@ -49,10 +49,10 @@ export default class YachtForm extends Component {
         </div>
         <div className="field is-grouped">
           <div className="control">
-            <button type='button' className="button is-link" onClick={handleNewYacht} value="submit">Submit</button>
+            <button type='button' className="button is-link" onClick={handleNewYacht} value={editForm ? "edit":"submit"}>{editForm ? "Edit":"Submit"}</button>
           </div>
           <div className="control">
-            <button type='button' className="button is-link is-light" onClick={handleNewYacht} value="cancel">Cancel</button>
+            <button type='button' className="button is-link is-light" value="cancel">Cancel</button>
           </div>
         </div>
       </form>      

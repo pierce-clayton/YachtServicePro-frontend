@@ -10,7 +10,8 @@ export default class YachtContainer extends Component {
     reg_num: '',
     sailboat: false,
     marina: '',
-    displayedYachts: []
+    displayedYachts: [],
+    editForm: false
   }
   
   componentDidMount() {
@@ -31,11 +32,26 @@ export default class YachtContainer extends Component {
         length: this.state.length,
         registration_number: this.state.reg_num,
         sail: this.state.sailboat,
-        marina_id: this.props.marinas.find(marina => marina.name === this.state.marina).id
+        marina_id: this.props.marinas.filter(marina => marina.name === this.state.marina).id
       },{withCredentials: true})
       .then(response => {
         this.setState(prevState => ({
           displayedYachts: [...prevState.displayedYachts, response.data]
+        }))
+      })
+    } else if (e.target.value === 'edit'){
+      axios.patch(`https://backend.baracus.rocks/yachts/${this.props.yacht.id}.json`,{
+        name: this.state.name,
+        marina_id: this.props.marinas.filter(marina => marina.name === this.state.marina).id
+      },{withCredentials: true})
+      .then(response => {
+        this.setState(prevState => ({
+          editForm: false,
+          displayedYachts: [...prevState.displayedYachts, response.data],
+          name: '',
+          length: '20',
+          reg_num: '',
+          marina: ''
         }))
       })
     } else if (e.target.value === 'cancel'){
@@ -48,12 +64,13 @@ export default class YachtContainer extends Component {
     }
   }
   handleEditYacht = (yacht) => {
-    this.setState({
+    this.props.handleSelectedYacht(yacht)
+    this.setState(prevState => ({
+      editForm: true,
       name: yacht.name,
-      length: yacht.length,
-      reg_num: yacht.registration_number,
-      marina: this.props.marinas.filter(marina => marina.id === yacht.marina_id)
-    })
+      marina: this.props.marinas.filter(marina => marina.id === yacht.marina_id).name,
+      displayedYachts: [...prevState.displayedYachts].filter(y => y.id !== yacht.id)
+    }))
   }
   handleChange = (event) => {
     if (event.target.name === 'sailboat'){
@@ -86,6 +103,7 @@ export default class YachtContainer extends Component {
         sailboat={this.state.sailboat}
         marina={this.state.marina}
         marinas={this.props.marinas}
+        editForm={this.state.editForm}
         />
       </div>
     )

@@ -68,6 +68,7 @@ export default class App extends Component {
                          user={this.state.user}
                          customer={this.state.customer}
                          marinas={this.state.marinas}
+                         yacht={this.state.selectedYacht}
                          handleSelectedYacht={this.handleSelectedYacht}
                          />
             )}/>

@@ -1,10 +1,11 @@
 import React from 'react'
 import YachtContainer from './YachtContainer'
 
-export default function Dashboard({loggedInStatus, user, customer, marinas, handleSelectedYacht, history}) {
+export default function Dashboard({loggedInStatus, user, customer, marinas, handleSelectedYacht, history, yacht}) {
   return (
     <div>
       {!!customer.email && loggedInStatus ==='LOGGED_IN' && <YachtContainer
+                                                            yacht={yacht}
                                                             marinas={marinas}
                                                             customer={customer}
                                                             handleSelectedYacht={handleSelectedYacht}
