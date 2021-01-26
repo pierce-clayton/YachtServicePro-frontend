@@ -42,6 +42,7 @@ export default class YachtForm extends Component {
           <div className="control">
             <div className="select">
               <select value={marina} name="marina" onChange={handleChange}>
+                <option value=''></option>
                 {marinaItems}
               </select>
             </div>

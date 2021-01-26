@@ -35,7 +35,7 @@ export default class Login extends Component {
 
   render() {
     return (
-      <div>
+      <div className='column'>
         <form onSubmit={this.handleSubmit}>
           <div className="field">
             <label className="label">Provider Login</label>

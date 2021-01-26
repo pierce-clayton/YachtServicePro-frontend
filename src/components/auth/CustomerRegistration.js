@@ -37,7 +37,7 @@ export default class Registration extends Component {
 
   render() {
     return (
-      <div>
+      <div className='column'>
         <form onSubmit={this.handleSubmit}>
           <div className="field">
             <label className="label">Register new Customer</label>

@@ -11,7 +11,8 @@ export default class App extends Component {
     user: {},
     customer: {},
     marinas: [],
-    selectedYacht: {}
+    selectedYacht: {},
+    selectedProduct: {}
   }
 
   componentDidMount(){
@@ -51,6 +52,9 @@ export default class App extends Component {
   handleSelectedYacht = (yacht) => {
     this.setState({selectedYacht: yacht})
   }
+  handleSelectedProduct = (product) => {
+    this.setState({selectedProduct: product})
+  }
   render() {
     return (
       <div className='app'>
@@ -70,6 +74,7 @@ export default class App extends Component {
                          marinas={this.state.marinas}
                          yacht={this.state.selectedYacht}
                          handleSelectedYacht={this.handleSelectedYacht}
+                         handleSelectedProduct={this.handleSelectedProduct}
                          />
             )}/>
             <Route exact path='/services' render={props => (

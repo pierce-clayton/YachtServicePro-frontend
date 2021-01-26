@@ -1,7 +1,8 @@
 import React from 'react'
 import YachtContainer from './YachtContainer'
+import AdminContainer from './AdminContainer'
 
-export default function Dashboard({loggedInStatus, user, customer, marinas, handleSelectedYacht, history, yacht}) {
+export default function Dashboard({loggedInStatus, user, customer, marinas, handleSelectedYacht, history, yacht, handleSelectedProduct}) {
   return (
     <div>
       {!!customer.email && loggedInStatus ==='LOGGED_IN' && <YachtContainer
@@ -11,7 +12,11 @@ export default function Dashboard({loggedInStatus, user, customer, marinas, hand
                                                             handleSelectedYacht={handleSelectedYacht}
                                                             history={history}
                                                             />}
-      {!!user.email && <h2>Welcome {user.email}</h2>}
+      {!!user.email && loggedInStatus ==='LOGGED_IN' && <AdminContainer
+                                                          user={user}
+                                                          marinas={marinas}
+                                                          history={history}
+                                                          handleSelectedProduct={handleSelectedProduct}/>}
       <h2>Status: {loggedInStatus}</h2>
     </div>
   )
