@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import MarinaProducts from '../components/MarinaProducts'
 import ProductForm from '../components/ProductForm'
 import axios from 'axios'
+import {reactLocalStorage} from 'reactjs-localstorage'
 
 export default class AdminContainer extends Component {
 
@@ -15,15 +16,21 @@ export default class AdminContainer extends Component {
     axios.get('https://backend.baracus.rocks/products.json', { withCredentials: true })
     .then(response => {
       this.setState({productList: [...response.data]})
+      reactLocalStorage.setObject('productList', [...response.data])
+      reactLocalStorage.remove('selectedProduct')
     })
+  }
+  componentWillUnmount(){
+    reactLocalStorage.remove('productList')
   }
   handleNewProduct = (product) => {
     this.setState(prevState => ({
       productList: [...prevState.productList, product]
     }))
+    reactLocalStorage.setObject('productList', [...this.state.productList, product])
   }
   handleDeleteProduct = (product) => {
-    
+
   }
   render() {
     const { user, marinas, history } = this.props
@@ -40,8 +47,6 @@ export default class AdminContainer extends Component {
         <ProductForm
          user={user}
          marinas={marinas}
-         productName={this.state.productName}
-         productDescription={this.state.productDescription}
          handleNewProduct={this.handleNewProduct}
         />
         {marinaProductsList}

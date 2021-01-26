@@ -3,7 +3,9 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Home from '../containers/Home'
 import Dashboard from '../containers/Dashboard'
 import ProductContainer from '../containers/ProductContainer'
+import PriceContainer from '../containers/PriceContainer'
 import axios from 'axios'
+import { reactLocalStorage } from 'reactjs-localstorage'
 
 export default class App extends Component {
   state = {
@@ -11,8 +13,8 @@ export default class App extends Component {
     user: {},
     customer: {},
     marinas: [],
-    selectedYacht: {},
-    selectedProduct: {}
+    selectedYacht: reactLocalStorage.getObject('selectedYacht') || {},
+    selectedProduct: reactLocalStorage.getObject('selectedProduct') || {}
   }
 
   componentDidMount(){
@@ -21,6 +23,10 @@ export default class App extends Component {
     .then(response => {
       this.setState({marinas: response.data})
     })
+  }
+  componentWillUnmount(){
+    reactLocalStorage.remove('selectedYacht')
+    reactLocalStorage.remove('selectedProduct')
   }
   // 'https://gentle-caverns-38062.herokuapp.com/logged_in'
   checkLoginStatus = () => {
@@ -51,9 +57,11 @@ export default class App extends Component {
   }
   handleSelectedYacht = (yacht) => {
     this.setState({selectedYacht: yacht})
+    reactLocalStorage.setObject('selectedYacht', yacht)
   }
   handleSelectedProduct = (product) => {
     this.setState({selectedProduct: product})
+    reactLocalStorage.setObject('selectedProduct', product)
   }
   render() {
     return (
@@ -82,6 +90,13 @@ export default class App extends Component {
                                 customer={this.state.customer}
                                 marinas={this.state.marinas}
                                 yacht={this.state.selectedYacht}
+                                />
+            )} />
+            <Route exact path='/prices' render={props => (
+              <PriceContainer {...props} 
+                                user={this.state.user}
+                                product={this.state.selectedProduct}
+                                marinas={this.state.marinas}
                                 />
             )} />
           </Switch>

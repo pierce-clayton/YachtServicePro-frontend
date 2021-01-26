@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Product({customer, yacht, marinas, products, handlePurchase}) {
+export default function Product({ yacht, marinas, products, handlePurchase}) {
   const productList = products.map(product => {
     return <article className="media" key={yacht.id}>
     <div className="media-content">

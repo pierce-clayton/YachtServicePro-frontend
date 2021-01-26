@@ -13,7 +13,7 @@ export default function MarinaProducts({marina, user, productList, history, hand
                 <div className="level-left">
                   <a className="level-item button is-info" onClick={() => {
                     handleSelectedProduct(product)
-                    return history.push('/services')}}>View Prices</a>
+                    return history.push('/prices')}}>View Prices</a>
                   <a className="level-item button is-danger" onClick={() => {
                   }
                     }>Delete Product</a>
