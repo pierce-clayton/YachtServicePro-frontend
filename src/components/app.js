@@ -19,10 +19,13 @@ export default class App extends Component {
 
   componentDidMount(){
     this.checkLoginStatus()
-    axios.get('https://backend.baracus.rocks/marinas.json', { withCredentials: true })
-    .then(response => {
-      this.setState({marinas: response.data})
-    })
+    
+      axios.get('https://backend.baracus.rocks/marinas.json', { withCredentials: true })
+      .then(response => {
+        this.setState({marinas: response.data})
+        
+      })
+   
   }
   componentWillUnmount(){
     reactLocalStorage.remove('selectedYacht')
@@ -97,6 +100,7 @@ export default class App extends Component {
                                 user={this.state.user}
                                 product={this.state.selectedProduct}
                                 marinas={this.state.marinas}
+                                handleSelectedProduct={this.handleSelectedProduct}
                                 />
             )} />
           </Switch>
