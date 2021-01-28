@@ -4,8 +4,13 @@ import Login from '../components/auth/Login'
 import CustomerRegistration from '../components/auth/CustomerRegistration'
 import CustomerLogin from '../components/auth/CustomerLogin'
 import axios from 'axios'
+import { reactLocalStorage } from 'reactjs-localstorage'
 
 export default class Home extends Component {
+
+  state = {
+    user: reactLocalStorage.getObject('homeState') || true
+  }
 
   handleSuccessfulAuth = (data) => {
     this.props.handleLogin(data)
@@ -18,31 +23,20 @@ export default class Home extends Component {
     })
     .catch(err => console.log(err))
   }
+  handlePortalSwitching = () => {
+    reactLocalStorage.setObject('homeState', this.state)
+    this.setState({user: !this.state.user})
+  }
   render() {
-    return (
-      <div className="container">
-        <section className="hero is-dark is-fullheight">
-          <div className="hero-head">
-              <div className="container has-text-centered">
-                <h1>Home</h1>
-                <button className="button is-danger" type='button' onClick={this.handleLogoutClick}>Logout</button> 
-              </div>
-          </div>
-          <div className="hero-body">
-              <div className="columns">
-                <Registration handleSuccessfulAuth={this.handleSuccessfulAuth} />
-                <Login handleSuccessfulAuth={this.handleSuccessfulAuth}/>
-                <CustomerRegistration handleSuccessfulAuth={this.handleSuccessfulAuth} />
-                <CustomerLogin handleSuccessfulAuth={this.handleSuccessfulAuth} />  
-              </div>
-          </div>
-          <div className="hero-foot">
-              <div className="container has-text-centered">
-                <h2>Status: {this.props.loggedInStatus}</h2>
-              </div>
-          </div>
-        </section>
-      </div>
+    return (        
+        <div className="columns">
+          <div className="button is-primary" onClick={() => this.handlePortalSwitching()}>{this.state.user ? "Customer Portal": "Provider Portal"}</div>
+          {this.state.user && (!!this.props.user.email ? <div className="button is-primary" onClick={() => this.handleLogoutClick()}>Register New Provider</div> : <Registration handleSuccessfulAuth={this.handleSuccessfulAuth} />)}
+          {this.state.user && (!!this.props.user.email ? <div className="button is-primary" onClick={() => this.props.history.push('/dashboard')}>View Products</div> : <Login handleSuccessfulAuth={this.handleSuccessfulAuth}/>) }
+          {!this.state.user && (!!this.props.customer.email ? <div className="button is-primary" onClick={() => this.handleLogoutClick()}>Register New Customer</div> : <CustomerRegistration handleSuccessfulAuth={this.handleSuccessfulAuth} />)}
+          {!this.state.user && (!!this.props.customer.email ? <div className="button is-primary" onClick={() => this.props.history.push('/dashboard')}>View Yachts</div> : <CustomerLogin handleSuccessfulAuth={this.handleSuccessfulAuth}/>) }
+          
+        </div>
     )
   }
 }

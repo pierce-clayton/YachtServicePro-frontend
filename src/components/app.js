@@ -18,13 +18,13 @@ export default class App extends Component {
   }
 
   componentDidMount(){
+    axios.get('https://backend.baracus.rocks/marinas.json', { withCredentials: true })
+    .then(response => {
+      this.setState({marinas: response.data})
+      
+    })
     this.checkLoginStatus()
     
-      axios.get('https://backend.baracus.rocks/marinas.json', { withCredentials: true })
-      .then(response => {
-        this.setState({marinas: response.data})
-        
-      })
    
   }
   componentWillUnmount(){
@@ -55,12 +55,19 @@ export default class App extends Component {
     }
   }
   handleLogout = () => {
-    this.setState({ loggedInStatus: 'NOT_LOGGED_IN', user: {}})
-    location.reload()
+    axios.delete('https://backend.baracus.rocks/logout', {withCredentials: true})
+    .then(response => {
+      this.setState({ loggedInStatus: 'NOT_LOGGED_IN', user: {}})
+      location.reload()
+    })
   }
   handleSelectedYacht = (yacht) => {
     this.setState({selectedYacht: yacht})
     reactLocalStorage.setObject('selectedYacht', yacht)
+  }
+  handleClearYacht = () => {
+    // this.setState({selectedYacht: {}})
+    // reactLocalStorage.remove('selectedYacht')
   }
   handleSelectedProduct = (product) => {
     this.setState({selectedProduct: product})
@@ -68,44 +75,67 @@ export default class App extends Component {
   }
   render() {
     return (
-      <div className='app'>
-        <BrowserRouter>
-          <Switch>
-            <Route exact path='/' render={props => (
-              <Home {...props}
-                    handleLogin={this.handleLogin}
-                    handleLogout={this.handleLogout}
-                    loggedInStatus={this.state.loggedInStatus} />
-            )} />
-            <Route exact path='/dashboard' render={props => (
-              <Dashboard {...props}
-                         loggedInStatus={this.state.loggedInStatus}
-                         user={this.state.user}
-                         customer={this.state.customer}
-                         marinas={this.state.marinas}
-                         yacht={this.state.selectedYacht}
-                         handleSelectedYacht={this.handleSelectedYacht}
-                         handleSelectedProduct={this.handleSelectedProduct}
-                         />
-            )}/>
-            <Route exact path='/services' render={props => (
-              <ProductContainer {...props} 
-                                customer={this.state.customer}
-                                marinas={this.state.marinas}
-                                yacht={this.state.selectedYacht}
-                                />
-            )} />
-            <Route exact path='/prices' render={props => (
-              <PriceContainer {...props} 
-                                user={this.state.user}
-                                product={this.state.selectedProduct}
-                                marinas={this.state.marinas}
-                                handleSelectedProduct={this.handleSelectedProduct}
-                                />
-            )} />
-          </Switch>
-        </BrowserRouter>
-      </div>
+      <div className="container app">
+      <section className="hero is-dark is-fullheight">
+        <div className="hero-head">
+            <div className="container">
+              <div className="navbar-menu">
+                <div className="navbar-start">
+                  <h1 className="title">Yacht Service Pro</h1>
+                </div>
+                <div className="navbar-end">
+                  <button className="button is-danger" type='button' onClick={this.handleLogout}>Logout</button> 
+                </div>
+              </div>
+            </div>
+        </div>
+        <div className="hero-body">
+              <BrowserRouter>
+                <Switch>
+                  <Route exact path='/' render={props => (
+                    <Home {...props}
+                          handleLogin={this.handleLogin}
+                          handleLogout={this.handleLogout}
+                          loggedInStatus={this.state.loggedInStatus}
+                          user={this.state.user}
+                          customer={this.state.customer} />
+                  )} />
+                  <Route exact path='/dashboard' render={props => (
+                    <Dashboard {...props}
+                              loggedInStatus={this.state.loggedInStatus}
+                              user={this.state.user}
+                              customer={this.state.customer}
+                              marinas={this.state.marinas}
+                              yacht={this.state.selectedYacht}
+                              handleSelectedYacht={this.handleSelectedYacht}
+                              handleSelectedProduct={this.handleSelectedProduct}
+                              />
+                  )}/>
+                  <Route exact path='/services' render={props => (
+                    <ProductContainer {...props} 
+                                      customer={this.state.customer}
+                                      marinas={this.state.marinas}
+                                      yacht={this.state.selectedYacht}
+                                      />
+                  )} />
+                  <Route exact path='/prices' render={props => (
+                    <PriceContainer {...props} 
+                                      user={this.state.user}
+                                      product={this.state.selectedProduct}
+                                      marinas={this.state.marinas}
+                                      handleSelectedProduct={this.handleSelectedProduct}
+                                      />
+                  )} />
+                </Switch>
+              </BrowserRouter>
+            </div>
+        <div className="hero-foot">
+            <div className="container has-text-centered">
+              <h2>{this.state.loggedInStatus === 'LOGGED_IN' ? 'Logged In': 'Not Logged In'}</h2>
+            </div>
+        </div>
+      </section>
+    </div>
     );
   }
 }

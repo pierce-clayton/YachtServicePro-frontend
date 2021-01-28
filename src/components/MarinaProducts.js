@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function MarinaProducts({marina, user, productList, history, handleSelectedProduct}) {
+export default function MarinaProducts({marina, user, productList, history, handleSelectedProduct, handleDeleteProduct}) {
   const marinaProductList = productList.filter(p => p.user_id === user.id).map(product => {
     return <article className="media" key={product.id}>
             <div className="media-content">
@@ -14,9 +14,6 @@ export default function MarinaProducts({marina, user, productList, history, hand
                   <a className="level-item button is-info" onClick={() => {
                     handleSelectedProduct(product)
                     return history.push('/prices')}}>View Prices</a>
-                  <a className="level-item button is-danger" onClick={() => {
-                  }
-                    }>Delete Product</a>
                 </div>
               </nav>
             </div>

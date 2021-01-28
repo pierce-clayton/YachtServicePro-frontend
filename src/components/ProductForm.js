@@ -5,11 +5,11 @@ export default class ProductForm extends Component {
   state = {
     productName: '',
     productDescription: '',
-    marina: ''
+    marina: '',
+    
   }
-  marinaItems = this.props.marinas.map((marina) => {
-    return <option value={marina.name} name={marina.name} key={marina.id}>{marina.name}</option>
-  })
+  
+  
 
   handleChange = (event) => {
     this.setState({
@@ -49,7 +49,9 @@ export default class ProductForm extends Component {
             <div className="select">
               <select value={this.state.marina} name="marina" onChange={this.handleChange}>
                 <option value=''></option>
-                {this.marinaItems}
+                {this.props.marinas.map((marina) => {
+      return <option value={marina.name} name={marina.name} key={marina.id}>{marina.name}</option>
+    })}
               </select>
             </div>
           </div>

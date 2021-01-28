@@ -23,7 +23,7 @@ export default class YachtContainer extends Component {
       }
     })
   }
-
+  
 
   handleNewYacht = (e) => {
     if (e.target.value === 'submit') {
@@ -57,7 +57,7 @@ export default class YachtContainer extends Component {
       })
     } else if (e.target.value === 'delete'){
       console.log('delete')
-      axios.delete(`https://backend.baracus.rocks/yachts/${this.props.yacht.id}`,{withCredentials: true})
+      axios.delete(`https://backend.baracus.rocks/yachts/${this.props.yacht.id}.json`,{withCredentials: true})
       .then(response => {
         this.setState({
           name: '',

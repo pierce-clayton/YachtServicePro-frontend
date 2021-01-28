@@ -17,7 +17,6 @@ export default function Dashboard({loggedInStatus, user, customer, marinas, hand
                                                           marinas={marinas}
                                                           history={history}
                                                           handleSelectedProduct={handleSelectedProduct}/>}
-      <h2>Status: {loggedInStatus}</h2>
     </div>
   )
 }

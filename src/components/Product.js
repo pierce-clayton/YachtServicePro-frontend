@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Product({ yacht, marinas, products, handlePurchase}) {
   const productList = products.map(product => {
-    return <article className="media" key={yacht.id}>
+    return <article className="media" key={product.id}>
     <div className="media-content">
       <div className="content">
         <p>Product Name: {product.name}</p><br/>

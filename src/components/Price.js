@@ -9,16 +9,10 @@ export default class Price extends Component {
         <p>Type: {price.stripe_type}</p><br/>
         <p>Price: ${parseInt(price.unit_amount) * .01}</p><br/>
       </div>
-      <nav className="level is-mobile">
-        <div className="level-left">
-          <a className="level-item button is-danger" onClick={() => {}}>Delete Price</a>
-        </div>
-      </nav>
     </div>
   </article>
   })
   render() {
-    const { user, product, history } = this.props
     return (
       <div className='column'>
         {this.priceList}

@@ -29,9 +29,7 @@ export default class AdminContainer extends Component {
     }))
     reactLocalStorage.setObject('productList', [...this.state.productList, product])
   }
-  handleDeleteProduct = (product) => {
-
-  }
+  
   render() {
     const { user, marinas, history } = this.props
     const marinaProductsList = marinas.map(marina => {
@@ -40,7 +38,8 @@ export default class AdminContainer extends Component {
                              user={user}
                              history={history} 
                              productList={this.state.productList.filter(product => product.marina_id === marina.id)}
-                             handleSelectedProduct={this.props.handleSelectedProduct}/>
+                             handleSelectedProduct={this.props.handleSelectedProduct}
+                           />
     })
     return (
       <div className='columns'>
