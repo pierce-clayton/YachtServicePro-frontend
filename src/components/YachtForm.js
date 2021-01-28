@@ -10,7 +10,7 @@ export default class YachtForm extends Component {
     })
     return (
       <div className='column'>
-      <form>
+      <form className='form'>
         <div className="field">
           <label className="label">Yacht Name</label>
           <div className="control">

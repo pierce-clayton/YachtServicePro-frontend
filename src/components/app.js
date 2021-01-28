@@ -76,12 +76,11 @@ export default class App extends Component {
   render() {
     return (
       <div className="container app">
-      <section className="hero is-dark is-fullheight">
         <div className="hero-head">
             <div className="container">
               <div className="navbar-menu">
                 <div className="navbar-start">
-                  <h1 className="title">Yacht Service Pro</h1>
+                  <h1 className="title">Yacht Service Pro&nbsp;&nbsp;&nbsp;&nbsp;</h1>
                 </div>
                 <div className="navbar-end">
                   <button className="button is-danger" type='button' onClick={this.handleLogout}>Logout</button> 
@@ -134,7 +133,6 @@ export default class App extends Component {
               <h2>{this.state.loggedInStatus === 'LOGGED_IN' ? 'Logged In': 'Not Logged In'}</h2>
             </div>
         </div>
-      </section>
     </div>
     );
   }
